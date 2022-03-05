@@ -1,0 +1,27 @@
+<div class="card">
+    <a href="{% url 'product' current.id %}" class="card-link">
+        <div class="card-header">
+            <h4>{{ current.name }}</h4>
+            {% if page_name == "Wyprzedaże" %}
+            <h5><del>{{ current.prev_price }}</del> &rarr; <span style="color:red">{{ current.price }} zł</span></h5>
+            {% else %}
+            {% if current.sizes %}
+            <h5>{{ current.sizes }} &nbsp;&nbsp;|&nbsp;&nbsp;{{ current.price }} zł</h5>
+            {% else %}
+            <h5><b>Produkt chwilowo niedostępny</b></h5>
+            {% endif %}
+            {% endif %}
+            {# <h5>Rozmiary: {{ current.2 }}</h5> #}
+            {% if page_name == "Bestsellery" %}
+            <h6><b>Sprzedano {{ current.amount_sold }} szt.</b></h6>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            {% if current.sizes %}
+            <img src="{{ current.default_image }}" alt="{{ current.name }}" loading="lazy">
+            {% else %}
+            <img src="{{ current.default_image }}" alt="{{ current.name }}" loading="lazy" style="filter: grayscale(100%);">
+            {% endif %}
+        </div>
+    </a>
+</div>

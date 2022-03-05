@@ -1,0 +1,89 @@
+/* ABOUT */
+
+.info-content {
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 2em;
+}
+
+.info-content img {
+	width: 100%;
+}
+
+.info-content .contact-imgs {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 1em;
+}
+
+.info-content .contact-imgs img {
+	width: 5%;
+}
+
+.info-content .cards {
+	display: flex;
+	justify-content: space-around;
+}
+
+.info-content .cards .card {
+	width: 25%;
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.info-content .cards .card:hover {
+	transform: scale(1.03, 1.03);
+	box-shadow: 0 0 8px 3px gainsboro;
+}
+
+.info-content .cards .card .card-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.info-content .cards .card .card-body p {
+	text-align: center;
+}
+
+.info-content h3 {
+	text-align: center;
+}
+
+.info-content h4 {
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	.info-content .contact-imgs {
+		display: none;
+	}
+
+	.info-content .cards {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+	}
+
+	.info-content .cards .card {
+		margin-bottom: 1em;
+		width: 100%;
+	}
+
+	.info-content .cards .card:last-child {
+		margin-bottom: 0;
+	}
+
+	.info-content .cards .card:hover {
+		transform: scale(1.01, 1.01)
+	}
+}
+
+.payment-tab {
+	text-align: center;
+}
+
+.payment-tab img {
+	width: 50%;
+}
+/* KONIEC ABOUT */

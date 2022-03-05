@@ -1,0 +1,62 @@
+.register-login {
+	display: flex;
+	justify-content: center;
+}
+
+.register-login .register-div {
+	padding: 1em;
+	border: 1px solid gainsboro;
+	/* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+	width: 40%;
+}
+
+@media (max-width: 992px) {
+	.register-login .register-div {
+		width: 50%;
+	}
+}
+
+@media (max-width: 768px) {
+	.register-login .register-div {
+		width: 100%;
+	}
+}
+
+.register-login .register-div ul {
+	padding: 0;
+	list-style-type: none;
+	margin-bottom: 0.5em;
+}
+
+.register-login .register-div ul li {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 0;
+	margin-bottom: 0.5em;
+}
+
+.register-login .register-div ul li:last-child {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.register-login .register-div ul li label {
+	margin-bottom: 0.5em;
+}
+
+.register-login .register-div .register-button {
+	text-align: right;
+	margin-bottom: 0.5em;
+	padding-bottom: 0.5em;
+	border-bottom: 1px solid gainsboro;
+}
+
+.register-login .jump-to-login p {
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.register-login .jump-to-login p a {
+	text-decoration: none;
+}

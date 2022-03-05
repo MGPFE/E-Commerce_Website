@@ -1,0 +1,64 @@
+<div>
+	<h4>Zamówienie nr {{ order.pk }}</h4>
+	<div class="order-item">
+		<div class="order-products">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Nazwa produktu</th>
+							<th scope="col">Rozmiar</th>
+							<th scope="col">Ilość</th>
+							<th scope="col">Cena</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for order_item in order.orderproduct_set.get_queryset %}
+							<tr>
+								{% load app_extras %}
+								<td>{{ order_item.product.name }}</td>
+								<td>{{ order_item.size.size_name }}</td>
+								<td>{{ order_item.quantity }} szt.</td>
+								<td>{{ order_item.product.price|multiply:order_item.quantity }} zł</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							{% if order.parcel != "none" %}
+							<td>{{ order.delivery.string }} - <b>{{ order.parcel }}</b></td>
+							{% else %}
+							<td>{{ order.delivery.string }}</td>
+							{% endif %}
+							<td>-</td>
+							<td>-</td>
+							<td>{{ order.delivery.price }} zł</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="order-details">
+			<div class="details">
+				<h5>Złożone: <b>{{ order.order_date }}</b></h5>
+				<h5>Status: <b>{{ order.status.string }}</b></h5>
+				<h5>Razem: <b>{{ order.price }} zł</b></h5>
+			</div>
+			<form class="order-img" method="get" action="{% url 'confirm_payment' %}">
+				{% csrf_token %}
+				{% load static %}
+				{% if order.status.string == "Zamówienie przyjęte" %}
+					<img src="{% static 'images/shop/order-placed.svg' %}" alt="order-placed" loading="lazy">
+				{% elif order.status.string == "Zamówienie wysłane" %}
+					<img src="{% static 'images/shop/in-delivery.svg' %}" alt="in-delivery" loading="lazy">
+				{% elif order.status.string == "Oczekiwanie na płatność" and not order.payment_confirmed %}
+				<button class="cool-btn" name="order-id" value="{{ order.pk }}" type="submit">
+					<img src="{% static 'images/shop/payment.svg' %}" alt="await-payment" loading="lazy">
+				</button>
+				{% else %}
+					<img src="{% static 'images/shop/delivered.svg' %}" alt="delivered" loading="lazy">
+				{% endif %}
+			</form>
+		</div>
+	</div>
+</div>

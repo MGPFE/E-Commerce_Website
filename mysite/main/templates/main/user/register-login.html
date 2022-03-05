@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/register-login.css' %}">
+{% endblock %}
+
+{% block title %}
+	{% if type == "register" %}
+	Zarejestruj się
+	{% else %}
+	Zaloguj się
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<style>
+	    .go-up-div {display: none;}
+	    nav {display: none;}
+	</style>
+	{% if type == "register" %}
+	<h1>Zarejestruj się</h1>
+	{% else %}
+	<h1>Zaloguj się</h1>
+	{% endif %}
+	<form method="post" class="register-login">
+		{% csrf_token %}
+		<div class="register-div">
+			<ul>
+			{{ form.as_ul }}
+			</ul>
+			{% if type == "login" %}
+			<a href="{% url 'reset_password' %}">Nie pamiętasz hasła?</a>
+			{% endif %}
+			<div class="register-button">
+				{% if type == "register" %}
+				<button class="cool-btn" type="submit">Załóż konto</button>
+				{% else %}
+				<button class="cool-btn" type="submit">Zaloguj się</button>
+				{% endif %}
+			</div>
+			<div class="jump-to-login">
+				{% if type == "register" %}
+				<p>Masz już konto? <a href="{% url 'login_user' %}">Zaloguj się</a></p>
+				{% else %}
+				<p>Nie masz konta? <a href="{% url 'register_user' %}">Zarejestruj się</a></p>
+				{% endif %}
+			</div>
+		</div>
+	</form>
+{% endblock %}

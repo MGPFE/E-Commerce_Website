@@ -1,0 +1,415 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1rem;
+	border-color: grey;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.container {
+	width: 80%;
+	max-width: 1280px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 2em;
+	padding: 0;
+}
+
+@media (max-width: 992px) {
+	.container {
+		width: 95%;
+	}
+}
+
+.container h1 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.cool-btn {
+	border: 1px solid gainsboro;
+	text-size: 2rem;
+	padding: 1em;
+	margin: 0;
+	transition: background-color 0.3s;
+	background-color: white;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cool-btn:hover {
+	background-color: #D4D2D3;
+}
+
+/* STRONA SKLADA SIE PRZY 992px i 650 PX!!! */
+
+/* LOGO NAD PASKIEM NAWIGACYJNYM */
+
+/*TODO PRZEPISAC NAVBAR*/
+
+.navcontainer {
+	width: 80%;
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2em;
+}
+
+@media (max-width: 992px) {
+	.navcontainer {
+		width: 95%;
+	}
+}
+
+.abovenav {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2em;
+}
+
+.abovenav .dummydiv {
+	width: 40%;
+}
+
+.abovenav .shoplogo {
+	width: 20%;
+	text-align: center;
+	/*min-width: 150px;*/
+}
+
+.abovenav .shoplogo img {
+	width: 100%;
+}
+
+.abovenav .buttonsdiv {
+	width: 40%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.abovenav .buttonsdiv ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: auto;
+	padding: 0;
+	width: 100%;
+}
+
+.abovenav .buttonsdiv ul li {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+	width: 25%;
+	transition: transform 0.3s;
+}
+
+.abovenav .buttonsdiv ul img {
+	width: 20%;
+	min-width: 25px;
+}
+
+.abovenav .buttonsdiv ul a {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: black;
+	width: 75%;
+}
+
+.abovenav .buttonsdiv ul li a span {
+	position:relative;
+}
+
+.cart-dot {
+	top:1px;
+	right:0;
+	border-radius:100%;
+	background-color:red;
+	width:12px;
+	height:12px;
+	position: absolute;
+}
+
+.abovenav .buttonsdiv ul li:hover {
+	transform: scale(1.2, 1.2);
+}
+
+.abovenav .buttonsdiv ul a p {
+	margin: 0;
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	.abovenav .shoplogo {
+		width: 35%;
+	}
+}
+
+@media (max-width: 992px) {
+	.abovenav {
+		flex-direction: column;
+		align-items: center;
+		font-size: 0.75rem;
+	}
+
+	.abovenav .shoplogo {
+		margin-bottom: 1em;
+	}
+
+	.abovenav .buttonsdiv {
+		width: 80%;
+	}
+
+	.abovenav .buttonsdiv ul {
+		justify-content: space-around;
+	}
+}
+
+/* KONIEC LOGO */
+
+/* PASEK NAWIGACYJNY */
+
+.navbar {
+	font-size: 2rem;
+	width: 100%;
+	border-bottom: 1px solid;
+	margin: auto;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.navbar ul {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.navbar ul a {
+	text-decoration: none;
+	color: black;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.navbar ul li {
+	transition: ease-in-out 0.3s;
+	width: 200px;
+	height: 100px;
+}
+
+.navbar ul li p {
+	/*padding-bottom: 0.5em;*/
+	transition: ease-in-out 0.3s;
+}
+
+.navbar ul a:hover > p  {
+	transform: translateY(28px);
+	/*border-bottom: 12px solid #D4D2D3;*/
+}
+
+@media (max-width: 992px) {
+	.navbar {
+		font-size: 1.3rem;
+	}
+
+	.navbar ul li {
+		height: 75px;
+	}
+
+	.navbar ul a:hover > p {
+		transform: translateY(25.5px);
+		transition: 0.3s;
+		/*border-bottom: 10px solid #D4D2D3;*/
+	}
+}
+
+@media (max-width: 768px) {
+	.navbar {
+		font-size: 1.5rem;
+	}
+
+	.navbar ul li p {
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	.navbar ul li p:last-child {
+		margin-bottom: 1em;
+	}
+
+	.navbar ul {
+		flex-direction: column;
+	}
+
+	.navbar ul li {
+		height: 40px;
+	}
+
+	.navbar ul a:hover > p {
+		transform: scale(1.4, 1.4);
+		border-bottom: 0;
+	}
+
+	.navbar .selected {
+		transform: scale(1.5, 1.5);
+		margin-bottom: 0;
+		border-bottom: 0;
+	}
+}
+
+.go-up-div {
+	margin: auto;
+	position: sticky;
+	bottom: 2em;
+	width: 80%;
+	max-width: 1280px;
+	display: none;
+	justify-content: flex-start;
+	margin-bottom: 2em;
+}
+
+@media (max-width: 992px) {
+	.go-up-div {
+		width: 95%;
+	}
+}
+
+.go-up-div .go-up-text-div {
+	/*display: flex;*/
+	/*display: none;*/
+	/*align-items: center;*/
+	/*margin-right: 1em;*/
+	opacity: 0.0;
+    transition: all 0.3s;
+}
+
+.go-up-div .go-up-text-div h4 {
+	margin: 0;
+}
+
+.go-up-div .go-up-a {
+	border: 2px solid black;
+	border-radius: 100%;
+	width: 35px;
+	text-align: center;
+	transition: ease-in-out 0.3s;
+}
+
+.go-up-div .go-up-a:hover + .go-up-text-div {
+	display: flex;
+	margin-left: 1em;
+	align-items: center;
+	opacity: 1.0;
+}
+
+.go-up-div a img {
+	width: 100%;
+}
+
+.go-up-div a:hover {
+	transform: scale(1.2, 1.2);
+}
+
+/* STOPKA */
+
+footer {
+	background-color: #EBEBEB;
+	margin-bottom: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+footer .footer-links {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+footer .foot {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	text-align: center;
+	/*BYLO AUTO*/
+	width: 25%;
+}
+
+footer .foot h6 {
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+footer .foot img {
+	width: 50px;
+	border-radius: 25%;
+}
+
+footer .foot a {
+	text-decoration: none;
+	color: black;
+	width: 100px;
+}
+
+footer .foot p {
+	margin: auto;
+	transition: ease-in-out 0.3s;
+}
+
+footer .foot p:hover {
+	transform: scale(1.2, 1.2);
+	/*color: white;*/
+	color: #5e5e5e;
+}
+
+@media (max-width: 768px) {
+	footer .footer-links {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	footer .foot {
+		width: 100%;
+	}
+}
+
+/* KONIEC STOPKI */
+
+/*ADDITIONAL*/
+
+footer .additional {
+	display: block;
+	text-align: center;
+	background-color: #EBEBEB;
+}
+
+footer .additional p {
+	margin-bottom: 0;
+}
+
+footer .additional p:last-child {
+	margin-bottom: 1em;
+}
+
+footer .additional a {
+	color: black;
+}

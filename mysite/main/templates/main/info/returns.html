@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/returns.css' %}">
+{% endblock %}
+
+{% block title %}Zwroty i reklamacje{% endblock %}
+
+{% block content %}
+<h1>Zwroty i reklamacje</h1>
+<div class="returns">
+	<h3>Krok po kroku</h3>
+	<div class="returns-steps">
+		<div class="returns-steps-step">
+			<img src="{% static 'images/shop/box.svg' %}" alt="Package">
+			<p>Zapakuj produkty</p>
+		</div>
+		<h1 class="arrow">&rarr;</h1>
+		<div class="returns-steps-step">
+			<img src="{% static 'images/shop/clipboard.svg' %}" alt="Notebook">
+			<p>Wypełnij formularz</p>
+		</div>
+		<h1 class="arrow">&rarr;</h1>
+		<div class="returns-steps-step">
+			<img src="{% static 'images/shop/in-delivery.svg' %}" alt="In-delivery">
+			<p>Wyślij paczkę</p>
+		</div>
+		<h1 class="arrow">&rarr;</h1>
+		<div class="returns-steps-step">
+			<img src="{% static 'images/shop/cash.svg' %}" alt="Cash">
+			<p>Otrzymaj zwrot pieniędzy</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block load_js %}
+<script src="{% static 'js/returns.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+{% endblock %}
+
+{% block title %}Użytkownik {{ user.username }}{% endblock %}
+
+{% block content %}
+{% if not user.user.first_name %}
+<h1>Witaj, {{ user.username }}!</h1>
+{% else %}
+<h1>Witaj, {{ user.user.first_name }}</h1>
+{% endif %}
+<div class="user-page">
+	<div class="upper-page">
+		<h3>Zamówienia</h3>
+		{% if orders %}
+		{% for order in orders %}
+			{% include 'main/includes/order-item.html' %}
+		{% endfor %}
+		{% if show_more %}
+			<form method="post" action="{% url 'all_orders' %}">
+				{% csrf_token %}
+				<button class="cool-btn">Wszystkie zamówienia</button>
+			</form>
+		{% endif %}
+		{% else %}
+			<h5 style="text-align:center; margin:1em;">Nie masz żadnych zamówień</h5>
+		{% endif %}
+	</div>
+	<div class="lower-page">
+		<div class="user-info">
+			<h3>Dane do wysyłki</h3>
+			<div class="table-responsive">
+			<table class="table">
+			  <tbody>
+			    <tr>
+			      <th>Imię</th>
+			      {% if user.user.first_name %}
+			      <td>{{ user.user.first_name }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Nazwisko</th>
+			      {% if user.user.last_name %}
+			      <td>{{ user.user.last_name }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Email</th>
+			      {% if user.user.email %}
+			      <td><p>{{ user.user.email }}</p></td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Numer telefonu</th>
+			      {% if user.user.phone %}
+			      <td>{{ user.user.phone }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Ulica i numer domu</th>
+			      {% if user.user.address_set.get_queryset.0.address %}
+			      <td>{{ user.user.address_set.get_queryset.0.address }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Miasto</th>
+			      {% if user.user.address_set.get_queryset.0.city %}
+			      <td>{{ user.user.address_set.get_queryset.0.city }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th>Kod pocztowy</th>
+			      {% if user.user.address_set.get_queryset.0.zipcode %}
+			      <td>{{ user.user.address_set.get_queryset.0.zipcode }}</td>
+			      {% else %}
+			      <td>-</td>
+			      {% endif %}
+			    </tr>
+			    <tr>
+			      <th class="user-code">Kod weryfikacyjny</th>
+			      <td>
+			      	<button id="user-code-btn" class="cool-btn" style="padding:0.2em;">Pokaż kod</button>
+			      	<p id="user-code" style="display:none; margin-left:1em;">{{ user.user.code }}</p>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+			</div>
+			<div class="edit-delete-buttons">
+				<form class="delete" action="{% url 'delete_user' %}">
+				{% csrf_token %}
+				<button class="cool-btn">Usuń konto</button>
+				</form>
+				<form class="edit" action="{% url 'edit_user' %}">
+					{% csrf_token %}
+					<button class="cool-btn">Zmień lub uzupełnij dane</button>
+				</form>
+			</div>
+			<form class="password-reset" action="{% url 'reset_password' %}">
+				<button class="cool-btn">Zmień hasło</button>
+			</form>
+			<!-- <a href="{% url 'reset_password' %}">Chcesz zmienić hasło?</a> -->
+		</div>
+		<div class="controls">
+			<h3>Skrzynka odbiorcza</h3>
+			{% if new_info %}
+			<ul>
+				{% for info in new_info %}
+					{% if info.is_important %}
+						{% if info.href %}
+						<a href="{{ info.href }}">
+						{% else %}
+						<a>
+						{% endif %}
+							<li class="important">
+								<p><b>{{ info.text }}</b></p>
+								<span>{{ info.announcement_date }}</span>
+							</li>
+						</a>
+					{% else %}
+						{% if info.href %}
+						<a href="{{ info.href }}">
+						{% else %}
+						<a>
+						{% endif %}
+							<li>
+								<p>{{ info.text }}</p>
+								<span>{{ info.announcement_date }}</span>
+							</li>
+						</a>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			{% else %}
+			<h5 style="text-align:center; margin:1em;">Brak nowych wiadomości</h5>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block load_js %}
+<script src="{% static 'js/user.js' %}"></script>
+{% endblock %}

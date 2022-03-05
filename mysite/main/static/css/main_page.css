@@ -1,0 +1,373 @@
+/* WŁAŚCIWA STRONA */
+
+.page {
+	width: 100%;
+	margin: auto;
+	display: flex;
+	/*flex-direction: column;
+	align-items: center;*/
+}
+
+.sort {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2em;
+}
+
+.search {
+	width: 60%;
+}
+
+.search-input {
+	text-size: 2rem;
+	border: 1px solid gainsboro;
+	padding: 1em;
+	width: 45%;
+}
+
+.sort .sorting {
+	display: flex;
+	justify-content: flex-end;
+	width: 50%;
+}
+
+.sort .sorting form {
+	display: flex;
+	width: 45%;
+}
+
+.sort .sorting form input {
+	width: 50%;
+}
+
+.sort .text {
+	margin-right: 1em;
+	display: flex;
+	align-items: center;
+}
+
+.sort a {
+	text-decoration: none;
+	color: black;
+}
+
+.sort .sort-btn {
+	width: 50%;
+}
+
+.main-panel {
+	/*margin-left: 3em;*/
+	width: 80%;
+}
+
+.side-panel {
+	width: 20%;
+}
+
+.side-card {
+	border: 1px solid gainsboro;
+	font-size: 1.3rem;
+}
+
+.side-card .category-button {
+	cursor: default;
+	width: 100%;
+	padding: 0.5em;
+	text-align: center;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background-color: white;
+	/*border: 1px solid gainsboro;*/
+	border: 0;
+	font-size: 1.7rem;
+}
+
+.side-card .category-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.side-card .category-form a {
+	border: 1px solid gainsboro;
+	background-color: white;
+	margin-bottom: 0;
+	padding: 0.5em;
+	text-align: center;
+	transition: background-color 0.3s;
+	color:black;
+	text-decoration:none;
+}
+
+.side-card .category-form a:hover {
+	/*background-color: #f0abdc;*/
+	background-color: #D4D2D3;
+}
+
+.container h1 {
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+.products-row {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 1em;
+	width: 100%;
+}
+
+.products-row .card {
+	position: relative;
+	display: block;
+	width: 30%;
+	margin: 1em;
+	margin-top: 0;
+	border-radius: 0%;
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+	transform: scale(1.03, 1.03);
+	box-shadow: 0 0 8px 3px gainsboro;
+}
+
+/*.products-row .card h5 {
+	margin-bottom: 0;
+}*/
+
+.products-row .card h6 {
+	position: absolute;
+	bottom: -7px;
+	left: -7px;
+	background-color: white;
+	font-weight: 100;
+	z-index: 1;
+	/*border-radius: 0 20px 0 0;*/
+	padding: 0.3em;
+	border: 1px solid gainsboro;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+	.products-row .card h6 {
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.products-row .card:last-child {
+	margin-right: 0;
+}
+
+.products-row .card .card-link {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	color: black;
+	width: 100%;
+	height: 100%;
+}
+
+.products-row .card-link .card-header {
+	background-color: transparent;
+	text-align: center;
+}
+
+.products-row .card-link .card-body {
+	padding: 0;
+	width: 100%;
+	/*QUESTIONABLE*/
+	height: 17rem;
+}
+
+.products-row .card-link .card-body img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.products-row:last-child {
+	margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+	.products-row .card-link .card-body {
+		padding: 0;
+		width: 100%;
+		/*QUESTIONABLE*/
+		height: 12rem;
+	}
+
+	.page {
+		flex-direction: column;
+	}
+
+	.page .main-panel {
+		width: 100%;
+	}
+
+	.page .main-panel .products-row {
+		justify-content: space-between;
+	}
+
+	.page .main-panel .products-row .card {
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.page .side-panel {
+		width: 100%;
+		padding-bottom: 1em;
+		border-bottom: 1px solid gainsboro;
+		margin-bottom: 1em;
+	}
+
+	.side-card .category-button {
+		cursor: pointer;
+		width: 100%;
+		background-color: white;
+		transition: background-color 0.3s;
+	}
+
+	.side-card .category-button:hover {
+		background-color: #D4D3D2;
+	}
+
+	.side-card .category-form {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s;
+	}
+}
+
+@media (max-width: 768px) {
+	.page {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.sort {
+		/*width: 90%;*/
+		flex-direction: column;
+	    justify-content: center;
+	    margin: 0 auto;
+	    margin-bottom: 1em;
+	}
+
+	.sort .text {
+		margin-right: 0;
+	}
+
+	.sort .search {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin-bottom: 1em;
+	}
+
+	.sort .search form {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.sort .search form .search-input {
+		width: 67%;
+	}
+
+	.sort .search form .search-btn {
+		width: 30%;
+	}
+
+	.sort .sorting {
+		width: 100%;
+		flex-direction: column;
+	}
+
+	.sort .sorting .text {
+		justify-content: center;
+	}
+
+	.sort .sorting form {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.sort .sorting .sort-btn {
+		width: 100%;
+	}
+
+	.main-panel {
+		margin: 0;
+		width: 100%;
+	}
+
+	.products-row {
+		flex-direction: column;
+		justify-content: center;
+		margin-bottom: 0;
+		width: 100%;
+		align-items: center;
+	}
+
+	.products-row .card {
+		width: 100%;
+		margin-bottom: 1em;
+	}
+
+	.products-row .card:hover {
+		transform: scale(1.01, 1.01);
+	}
+
+	.products-row .card-link .card-body {
+	padding: 0;
+	width: 100%;
+	/*QUESTIONABLE*/
+	height: 25rem;
+	}
+}
+
+.paginator {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.paginator .paginator-page {
+	width: 10%;
+	font-size: 1.5rem;
+	border: 1px solid gainsboro;
+	text-align: center;
+	margin-right: 0.5em;
+	transition: background-color 0.3s, transform 0.3s;
+}
+
+.paginator .paginator-page:last-child {
+	margin-right: 0;
+}
+
+.paginator .paginator-page:hover {
+	background-color: #D4D2D3;
+	transform: scale(1.1, 1.1);
+}
+
+.paginator .paginator-page a {
+	text-decoration: none;
+	color: black;
+}
+
+.paginator .paginator-page a p {
+	margin: 0;
+}
+
+@media (max-width: 768px) {
+	.go-up-div {
+		bottom: 0.5em;
+	}
+}
+
+/* KONIEC WŁAŚCIWEJ STRONY */

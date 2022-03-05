@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/email_css/base_email.css' %}"> -->
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+			body {
+				font-family: 'Ubuntu', sans-serif;
+			}
+
+			.container {
+				width: 90%;
+				display: block;
+				border: 1px solid;
+				margin: 0 auto;
+			}
+
+			.container .header,
+			.container .footer {
+				width: 100%;
+				text-align: center;
+				display: block;
+			}
+
+			.container .header {
+				border-bottom: 1px solid gainsboro;
+			}
+
+			.container .content {
+				text-align: center;
+				display: block;
+				padding: 1em;
+				border-bottom: 1px solid;
+			}
+
+			.container .content .add-content {
+				padding: 1em;
+				border: 1px solid gainsboro;
+			}
+
+			.container .footer {
+				background-color: gainsboro;
+			}
+
+			.container .footer p {
+				margin: 0;
+			}
+
+			.container .content .products ul
+			.container .content .products .client-details ul {
+				display: block;
+				width: 100%;
+				padding-left: 0;
+				list-style-type: none;
+			}
+
+			.container .content .products ul li,
+			.container .content .products .client-details ul li {
+				width: 100%;
+				padding-bottom: 0.5em;
+				margin-bottom: 0.5em;
+				border-bottom: 1px solid gainsboro;
+				margin: 0 auto;
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- <div class="logo">
+				<img src="{% static 'images/shop/Logo.jpg' %}">
+			</div> -->
+			<div class="header">
+				<h1>{{ header }} - Hello Butik</h1>
+			</div>
+			<div class="content">
+				{% if user.user.first_name %}
+				<h2><b>Witaj {{ user.user.first_name }}!</b></h2>
+				{% else %}
+				<h2><b>Witaj {{ user.username }}!</b></h2>
+				{% endif %}
+				<h3>{{ msg }}</h3>
+				{% if add_content %}
+				<h1 class="add-content"><b>{{ add_content }}</b></h1>
+				{% endif %}
+				{% if order %}
+				<div class="products">
+					<h2 style="text-align:left;">Zamówione produkty:</h2>
+					<ul>
+						{% load app_extras %}
+						{% for product in order.orderproduct_set.get_queryset %}
+							<li><b>&rarr;&emsp;{{ product.product.name }} - Rozmiar {{ product.size.size_name }} - {{ product.quantity }} szt. - {{ product.product.price|multiply:product.quantity }} zł</b></li>
+						{% endfor %}
+						<li><b>&rarr;&emsp;{{ delivery.string }} - {{ delivery.price }} zł</b></li>
+					</ul>
+					<h2 style="text-align:right;">Razem: <b>{{ order_price }} zł</b></h2>
+				{% if self_mail %}
+					<h2 style="text-align:left;">Dane klienta:</h2>
+					<ul>
+						<li>Imię: <b>{{ user.user.first_name }}</b></li>
+						<li>Nazwisko: <b>{{ user.user.last_name }}</b></li>
+						<li>Email: <b>{{ user.user.email }}</b></li>
+						<li>Telefon: <b>{{ user.user.phone }}</b></li>
+						<li>Ulica i numer domu/mieszkania: <b>{{ user.user.address_set.get_queryset.0.address }}</b></li>
+						<li>Kod pocztowy: <b>{{ user.user.address_set.get_queryset.0.zipcode }}</b></li>
+						<li>Miasto: <b>{{ user.user.address_set.get_queryset.0.city }}</b></li>
+						{% if order.parcel != "none" %}
+						<li>Paczkomat: <b>{{ order.parcel }}</b></li>
+						{% endif %}
+					</ul>
+				</div>
+				{% endif %}
+				{% endif %}
+			</div>
+
+			<div class="footer">
+				<p>Ta wiadomość została wygenerowana automatycznie.</p>
+				<p><a href="#">Hello Butik</a></p>
+			</div>
+		</div>
+	</body>
+</html>

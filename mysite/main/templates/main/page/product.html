@@ -1,0 +1,91 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block title %}{{ product_name }}{% endblock %}
+
+{% block content %}
+<div class="product-page">
+	<div class="product-main">
+		<!-- IMAGE CAROUSEL -->
+		<div id="carouselExampleFade" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel">
+		  	<div class="carousel-inner">
+		  		{% for img in img_urls %}
+		  		{% if forloop.counter == 1 %}
+		    	<div class="carousel-item active">
+		      		<img src="{{ img }}" alt="product-img">
+		    	</div>
+		    	{% else %}
+		    	<div class="carousel-item">
+		      		<img src="{{ img }}" alt="product-img">
+		    	</div>
+		    	{% endif %}
+		    	{% endfor %}
+		  	</div>
+		  	{% if img_urls|length > 1 %}
+		  	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+		 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    	<span class="visually-hidden">Previous</span>
+		  	</button>
+		  	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+		    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    	<span class="visually-hidden">Next</span>
+		  	</button>
+		  	{% endif %}
+		</div>
+		<!-- END OF IMAGE CAROUSEL -->
+		<div class="desc">
+			<div class="product-desc">
+			<h1>{{ product_name }}</h1>
+			{% if category == 4 %}
+			<h2><del>{{ prev_price }}</del> &rarr; <span style="color:red;">{{ price }} zł</span></h2>
+			{% else %}
+			<h2>{{ price }} zł</h2>
+			{% endif %}
+			<p>{{ desc }}</p>
+			</div>
+			<div class="to-cart-div">
+				{% if sizes %}
+				<button type="button" class="coll">Wybierz rozmiar i dodaj do koszyka</button>
+				<div class="collapse-content">
+					<form method="post">
+					{% csrf_token %}
+					{% for size in sizes %}
+						<button type="submit" class="to-cart" name="to-cart" value="{{ size.size_name }}">
+							Rozmiar {{ size.size_name }} - {{ size.quantity }} szt.
+						</button>
+					{% endfor %}
+					</form>
+				</div>
+				{% else %}
+					<h4>Produkt chwilowo niedostępny</h4>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="product-params">
+		{% if composition %}
+		<div class="composition">
+			<h3>Skład produktu</h3>
+			{% for comp in composition %}
+			<p>{{ comp }}</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+		{% if sizing %}
+		<div class="sizes">
+			<h3>Wymiary</h3>
+			{% for siz in sizing %}
+			<p>{{ siz }}</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+{% block load_js %}
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}

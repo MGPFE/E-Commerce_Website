@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register-login.css' %}">
+{% endblock %}
+
+{% block title %}Usuwanie konta {{ user.username }}{% endblock %}
+
+{% block content %}
+<h1>Usuń swoje konto</h1>
+<form method="post" class="register-login">
+	{% csrf_token %}
+	<div class="register-div">
+		<ul>
+		{{ form.as_ul }}
+		</ul>
+		<div style="border-bottom:0; margin-bottom:0; padding-bottom:0;" class="register-button">
+			<button class="cool-btn" type="submit">Usuń</button>	
+		</div>
+	</div>
+</form>
+{% endblock %}
+
+{% block load_js %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block title %}Koszt i czas dostawy{% endblock %}
+
+{% block content %}
+<style>
+    .go-up-div {
+        display: none;
+    }
+</style>
+<h1>Koszt i czas dostawy</h1>
+<div class="info-content">
+    <!-- <img src="{% static 'images/info/price-table.png' %}" alt="price-table"> -->
+    <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sposób transportu</th>
+          <th scope="col">Koszt transportu</th>
+          <th scope="col">Czas oczekiwania</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paczkomaty InPost</td>
+          <td>12.99 zł</td>
+          <td>1-2 dni</td>
+        </tr>
+        <tr>
+          <td>Kurier InPost</td>
+          <td>14.99 zł</td>
+          <td>1-2 dni</td>
+        </tr>
+        <tr>
+          <td>Odbiór osobisty</td>
+          <td>Darmowy</td>
+          <td>1 dzień</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}

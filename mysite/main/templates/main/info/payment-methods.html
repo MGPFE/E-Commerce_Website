@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block title %}Metody płatności{% endblock %}
+
+{% block content %}
+<style>
+    .go-up-div {
+        display: none;
+    }
+</style>
+<h1>Metody płatności</h1>
+<div class="info-content">
+    <table class="payment-tab">
+        <tr>
+            <td><img src="{% static 'images/info/przelewy24.png' %}" alt="przelewy24"></td>
+            <td><img src="{% static 'images/info/payu.png' %}" alt="payu"></td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

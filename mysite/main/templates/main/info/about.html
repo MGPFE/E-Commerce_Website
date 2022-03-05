@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block title %}O nas{% endblock %}
+
+{% block content %}
+<h1>O nas</h1>
+<div class="info-content">
+    <div class="cards">
+        <div class="card">
+            <div class="card-header">
+                <h3>Na rynku od 2020 roku</h3>
+            </div>
+            <div class="card-body">
+                <p>Od 2020 roku Hello Butik sprawia,
+                     że na twarzach kobiet pojawia się uśmiech, dzięki produktom,
+                     które spełniają ich oczekiwania! Nasza oferta dobierana jest specjalnie 
+                     z myślą o naszych klientkach!</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>Cechują nas</h3>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>indywidualne podejście do klienta</li>
+                    <li>uczciwość</li>
+                    <li>kreatywność</li>
+                    <li>profesjonalizm</li>
+                    <li>stały kontakt z klientem</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>Produkty</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Produkty w Hello Butik są wyjątkowe i niepowtarzalne! 
+                    Wysoka jakość oferowanych produktów łączy się u nas z przystępnymi cenami!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

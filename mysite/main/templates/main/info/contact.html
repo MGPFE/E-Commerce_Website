@@ -1,0 +1,58 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block title %}Kontakt{% endblock %}
+
+{% block content %}
+<style>
+    .go-up-div {
+        display: none;
+    }
+</style>
+<h1>Kontakt</h1>
+<div class="info-content">
+    <div class="contact-imgs">
+        <img src="{% static 'images/info/call.svg' %}" alt="call">
+        <img src="{% static 'images/info/envelope.svg' %}" alt="envelope">
+        <img src="{% static 'images/info/at.svg' %}" alt="at">
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div class="card-header">
+                <h3>Numer telefonu</h3>
+            </div>
+            <div class="card-body">
+                <h4>
+                    000 000 000
+                </h4>
+            </div>
+        </div>   
+        <div class="card">
+            <div class="card-header">
+                <h3>Adres</h3>
+            </div>
+            <div class="card-body">
+                <h4>
+                    Osiedle XYZ
+                    <br>
+                    00-000, Warszawa
+                </h4>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>E-mail</h3>
+            </div>
+            <div class="card-body">
+                <a href="mailto:xyz2020@gmail.com">
+                    <h4>xyz2020<wbr>@gmail.com</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

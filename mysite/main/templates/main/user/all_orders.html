@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+{% endblock %}
+
+{% block title %}Wszystkie zamówienia {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="user-page">
+	<div class="upper-page">
+		<h3>Wszystkie Zamówienia</h3>
+		{% if orders %}
+		{% for order in orders %}
+			{% include 'main/includes/order-item.html' %}
+		{% endfor %}
+		{% else %}
+			<h4 style="text-align:center; margin:1em;">Nie masz żadnych zamówień</h4>
+		{% endif %}
+	</div>
+</div>
+{% if num_pages > 1 %}
+    {% if page_range %}
+    <div class="paginator">
+        {% for i in page_range %}
+            {% if i == curr_page %}
+            <div class="paginator-page" style="background-color: #D4D2D3;">
+            {% else %}
+            <div class="paginator-page">
+            {% endif %}
+                <a href="./{{ i }}">
+                    <p>{{ i }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

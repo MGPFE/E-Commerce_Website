@@ -1,0 +1,136 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+{% if selected_delivery == "Delivery.INPOSTPARCEL" %}
+<link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
+{% endif %}
+{% endblock %}
+
+{% block title %}Koszyk{% endblock %}
+
+{% block content %}
+<style>
+    .go-up-div {display: none;}
+    nav {display: none;}
+</style>
+<h1>Koszyk</h1>
+<div class="cart-content">
+    {% if products %}
+    <div class="cart">
+    {% else %}
+    <div class="cart" style="margin-bottom: 0;">
+    {% endif %}
+        <ul class="cart-items">
+            {% if user.username %}
+            {% for item, image in products.items %}
+            <li class="cart-item">
+                <div class="item-image">
+                    <img src="{{ image }}" alt="{{ item.product.name }}">
+                </div>
+                <div class="item-info">
+                    <div class="info">
+                        <h3>{{ item.product.name }}</h3>
+                        <p>{{ item.product.desc }}</p>
+                        <!-- <p>Kolor: <b>{{ v.color }}</b></p> -->
+                        <p>Rozmiar: <b>{{ item.size.size_name }}</b></p>
+                        <p>Ilość: <b>{{ item.quantity }} szt.</b></p>
+                    </div>
+                    <div class="deletion-info">
+                        <p>Rezerwacja do: <wbr><b>{{ item.deletion_date }} - {{ item.deletion_time }}</b></p>
+                        <!--<p>Autom. usunięcie: <b>{{ item.deletion_date }}</b>
+                        <p> o godzinie: <b>{{ item.deletion_time }}</b></p>-->
+                    </div>
+                </div>
+                <div class="item-options">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p id="delete-text">Usuń produkt</p>
+                        <button class="delete-cart-item" type="submit" name="delete-item" value="{{ item.pk }}">
+                            <img src="{% static 'images/user/trash.svg' %}" alt="trash-can">
+                        </button>
+                    </form>
+                    {% load app_extras %}
+                    {% if item.product.previous_price != 0 %}
+                    <h3 class="price-h3"><del>{{ item.product.previous_price|multiply:item.quantity }}</del> &rarr; {{ item.product.price|multiply:item.quantity }} zł</h3>
+                    {% else %}
+                    <h3 class="price-h3">{{ item.product.price|multiply:item.quantity }} zł</h3>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+        {% if not products %}
+        <h2>Nie masz nic w koszyku</h2>
+        {% endif %}
+    </div>
+    <div class="cart-summary">
+        {% if products %}
+        <div class="delivery-div">
+            <div class="delivery-label">
+                <h5>Wybierz dostawę:</h5>
+            </div>
+            <form method="get">
+                {% if selected_delivery == "Delivery.PICKUP" %}
+                <button style="background-color:gainsboro;" class="cool-btn" type="submit" name="delivery" value="Delivery.PICKUP">Odbiór osobisty</button>
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTPARCEL">Paczkomaty InPost +12.99 zł</button>
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTCOURIER">Kurier InPost +14.99 zł</button>
+                {% elif selected_delivery == "Delivery.INPOSTCOURIER" %}
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.PICKUP">Odbiór osobisty</button>
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTPARCEL">Paczkomaty InPost +12.99 zł</button>
+                <button style="background-color:gainsboro;" class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTCOURIER">Kurier InPost +14.99 zł</button>
+                {% elif selected_delivery == "Delivery.INPOSTPARCEL" %}
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.PICKUP">Odbiór osobisty</button>
+                <button style="background-color:gainsboro;" class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTPARCEL">Paczkomaty InPost +12.99 zł</button>
+                <button class="cool-btn" type="submit" name="delivery" value="Delivery.INPOSTCOURIER">Kurier InPost +14.99 zł</button>
+                {% endif %}
+            </form>
+        </div>
+        {% if selected_delivery == "Delivery.INPOSTPARCEL" %}
+            <div style="margin-bottom:1em;" id="easypack-map">
+            </div>
+        {% endif %}
+        <div class="price">
+            {% if selected_delivery == "Delivery.INPOSTPARCEL" %}
+            <div class="parcel-selection alert-danger">
+                <h3 id="display-parcel">Wybierz paczkomat</h3>
+            </div>
+            {% endif %}
+            <h3>Razem:&emsp; <b>{{ overall_price }} zł</b></h3>
+            <form method="post">
+                {% csrf_token %}
+                <input id="selected_parcel" style="display:none;" name="selected_parcel" value="none">
+                <button type="submit" class="cool-btn">Złóż zamówienie</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block load_js %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% if selected_delivery == "Delivery.INPOSTPARCEL" %}
+<script type="text/javascript">
+    window.easyPackAsyncInit = function () {
+        easyPack.init({});
+        var map = easyPack.mapWidget('easypack-map', function(point){
+            // console.log(point.address.line1);
+            // console.log(point.address.line2);
+            var element = document.getElementById("selected_parcel");
+            var displayParcelDiv = document.getElementsByClassName("parcel-selection")[0];
+            var displayParcel = document.getElementById("display-parcel");
+            if(element) {
+                element.value = point.name;
+                displayParcelDiv.classList.remove("alert-danger");
+                displayParcelDiv.classList.add("alert-info");
+                displayParcel.innerHTML = "Wybrano paczkomat " + element.value.bold();
+                alert("Wybrano paczkomat " + element.value);
+            }
+        });
+    };
+</script>
+<script async src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		{% load static %}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Sklep internetowy z odzieżą damską">
+		<meta name="keywords" content="sklep, odzież damska, ubrania, tanie ubrania">
+		<meta name="author" content="XYZ">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+		<link rel="icon" type="image/png" href="{% static 'images/shop/Logo.ico' %}"/>
+		{% block load_css %}{% endblock %}
+
+		<title>{% block title %}{% endblock %} - Hello Butik</title>
+	</head>
+	<body>
+		<a id="top"></a>
+		<div class="navcontainer">
+			<!-- TUTAJ JEST LOGO -->
+			<div class="abovenav">
+				<div class="dummydiv"></div>
+				<a href="{% url 'home' %}" class="shoplogo"><img src="{% static 'images/shop/Logo.jpg' %}" alt="shop logo"></a>
+				<div class="buttonsdiv">
+					<ul>
+						{% if user.is_authenticated %}
+							{% if not user.is_superuser %}
+								<li><a href="{% url 'user_page' %}"><img src="{% static 'images/shop/user.svg' %}" alt="{{ user.username }}"><p>{{ user.username }}</p></a></li>
+								<!-- <li><a href="#"><img src="{% static 'images/shop/heart.png' %}"><p>Ulubione</p></a></li> -->
+								<!-- FIX THIS -->
+								{% if user.user.cart.cartproduct_set.count != 0 %}
+									<!-- <li><a href="{% url 'cart' %}"><img src="{% static 'images/shop/cart-plus.svg' %}" alt="cart"><p>Koszyk</p></a></li> -->
+									<li><a href="{% url 'cart' %}">
+										<span>
+											<div class="cart-dot"></div>
+											<img src="{% static 'images/shop/cart.svg' %}" alt="cart">
+										</span>
+										<p>Koszyk</p>
+									</a></li>
+								{% else %}
+									<li><a href="{% url 'cart' %}"><img src="{% static 'images/shop/cart.svg' %}" alt="cart"><p>Koszyk</p></a></li>
+								{% endif %}
+							{% else %}
+								<form action="{% url 'admin:index' %}">
+									{% csrf_token %}
+									<button class="cool-btn" type="submit">Panel Administratora</button>
+								</form>
+							{% endif %}
+							<li><a href="{% url 'logout_user' %}"><img src="{% static 'images/shop/logout.svg' %}" alt="logout"><p>Wyloguj</p></a></li>
+						{% else %}
+							<li><a href="{% url 'login_user' %}"><img src="{% static 'images/shop/login.svg' %}" alt="login"><p>Zaloguj</p></a></li>
+							<li><a href="{% url 'register_user' %}"><img src="{% static 'images/shop/clipboard.svg' %}" alt="register"><p>Zarejestruj</p></a></li>
+						{% endif %}
+					</ul>
+				</div>
+				
+			</div>
+			<!-- KONIEC LOGO -->
+			<nav>
+				<!-- TODO PRZEPISAC NAVBAR -->
+				<div class="navbar">
+					<ul>
+						<li><a href="{% url 'home' %}"><p>Nowości</p></a></li>
+						<li><a href="{% url 'clothes' %}"><p>Odzież</p></a></li>
+						<!-- <li><a href="{% url 'accessories' %}"><p>Akcesoria</p></a></li> -->
+						<li><a href="{% url 'bestsellers' %}"><p>Bestsellery</p></a></li>
+						<li><a href="{% url 'sale' %}"><p>Wyprzedaże</p></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="container">
+			{% if messages %}
+				{% for message in messages %}
+					{% if message.tags == "error" %}
+						<!-- <div class="alert alert-danger">
+							<h5>{{ message }}</h5>
+						</div> -->
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  							<strong>Wystąpił błąd!</strong> {{ message }}
+  							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% elif message.tags == "success" %}
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+  							<strong>Sukces!</strong> {{ message }}
+  							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% elif message.tags == "info" %}
+						<div class="alert alert-info alert-dismissible fade show" role="alert">
+  							<strong>Informacja</strong> {{ message }}
+  							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			{% block content %}{% endblock %}
+		</div>
+		<div class="go-up-div">
+			<a class="go-up-a" href="#top"><img class="go-up-btn" src="{% static 'images/utils/arrow-up.svg' %}" alt="go up button"></a>
+			<div class="go-up-text-div">
+				<h4 class="go-up-text">Wróć do góry strony</h4>
+			</div>
+		</div>
+		<footer>
+			<div class="footer-links">
+				<div class="col1 foot">
+					<h6>Informacje o nas</h6>
+					<a href="{% url 'about' %}"><p>O nas</p></a>
+					<a href="{% url 'contact' %}"><p>Kontakt</p></a>
+					<a href="#"><p>Regulamin</p></a>
+					<a href="#"><p>Polityka prywatności</p></a>
+				</div>
+				<div class="col2 foot">
+					<h6>Obsługa klienta</h6>
+					<!-- <a href="#"><p>FAQ</p></a> -->
+					<!-- <a href="{% url 'payment_methods' %}"><p>Metody płatności</p></a> -->
+					<a href="{% url 'returns' %}"><p>Zwroty i reklamacje</p></a>
+					<a href="{% url 'logistics' %}"><p>Koszt i czas dostawy</p></a>
+				</div>
+				<div class="col3 foot">
+					<h6>Znajdź nas na</h6>
+					<!-- <img src="{% static 'images/shop/vinted.png' %}"> -->
+					<a href="https://www.instagram.com/hellobutik.official/"><img src="{% static 'images/shop/instagram.svg' %}" alt="instagram"></a>
+					<a href="https://www.facebook.com/HB-Sklep-z-odzie%C5%BC%C4%85-damsk%C4%85-104888681782213"><img src="{% static 'images/shop/facebook.svg' %}" alt="facebook"></a>
+				</div>
+			</div>
+			<div class="additional">
+				<p>Copyright &copy; Hello Butik 2021</p>
+				<a href="https://github.com/MGPFE"><p>https://github.com/MGPFE</p></a>
+			</div>
+		</footer>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+		<script src="{% static 'js/base.js' %}"></script>
+		{% block load_js %}{% endblock %}
+	</body>
+</html>

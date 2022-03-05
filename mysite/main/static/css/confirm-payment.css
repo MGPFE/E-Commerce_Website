@@ -1,0 +1,49 @@
+.confirm-payment {
+	display: flex;
+	justify-content: space-between;
+}
+
+.confirm-payment .payment-details,
+.confirm-payment .payment-form {
+	border: 1px solid gainsboro;
+	padding: 1em;
+	width: 49%;
+}
+
+.confirm-payment .payment-form .btn {
+	padding: 0;
+	width: 100%;
+	text-align: right;
+}
+
+.confirm-payment .payment-form form {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.confirm-payment .payment-form form ul {
+	padding: 0;
+	list-style-type: none;
+}
+
+.confirm-payment .payment-form form ul li {
+	display: flex;
+	flex-direction: column;
+}
+
+@media (max-width: 768px) {
+	.confirm-payment {
+		flex-direction: column;
+	}
+
+	.confirm-payment .payment-details,
+	.confirm-payment .payment-form {
+		width: 100%;
+	}
+
+	.confirm-payment .payment-details {
+		margin-bottom: 1em;
+	}
+}

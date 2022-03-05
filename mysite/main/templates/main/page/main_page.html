@@ -1,0 +1,107 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main_page.css' %}">
+{% endblock %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+{% block content %}
+<h1>{{ page_name }}</h1>
+<div class="sort">
+    <div class="search">
+        <form id="searching" method="GET" action="">
+            <input class="search-input" type="text" name="q" value="{{ q }}" placeholder="Wyszukaj produkt...">
+            <input class="search-btn cool-btn" type="submit" value="Wyszukaj">
+        </form>
+    </div>
+    <div class="sorting">
+        <div class="text">
+            <h5>Sortuj wg ceny</h5>
+        </div>
+        <form id="my_form" method="post">
+            {% csrf_token %}
+            {% if resp == "ascending" %}
+            <button class="sort-btn cool-btn" name="sort-btn" value="descending" type="submit">Malejąco</button>
+            <button class="sort-btn cool-btn" name="sort-btn" value="ascending" type="submit" style="background-color: #D4D2D3;">Rosnąco</button>
+            {% elif resp == "descending" %}
+            <button class="sort-btn cool-btn" name="sort-btn" value="descending" type="submit" style="background-color: #D4D2D3;">Malejąco</button>
+            <button class="sort-btn cool-btn" name="sort-btn" value="ascending" type="submit">Rosnąco</button>
+            {% else %}
+            <button class="sort-btn cool-btn" name="sort-btn" value="descending" type="submit">Malejąco</button>
+            <button class="sort-btn cool-btn" name="sort-btn" value="ascending" type="submit">Rosnąco</button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+<div class="page">
+    <div class="side-panel">
+        <div class="side-card">
+            <button type="button" class="category-button">Kategorie</button>
+            <!-- <form class="category-form" id="category_form" method="post"> -->
+                <!-- {% csrf_token %} -->
+                <div class="category-form" id="category_form">
+                    <a href="?q=bluzka">Bluzki</a>
+                    <a href="?q=bluza">Bluzy</a>
+                    <a href="?q=body">Body</a>
+                    <a href="?q=komplet">Komplety</a>
+                    <a href="?q=koszula">Koszule</a>
+                    <a href="?q=kurtka">Kurtki</a>
+                    <a href="?q=marynarka">Marynarki</a>
+                    <a href="?q=płaszcz">Płaszcze</a>
+                    <a href="?q=spodnie">Spodnie</a>
+                    <a href="?q=spódnica">Spódnice</a>
+                    <a href="?q=sukienka">Sukienki</a>
+                    <a href="?q=sweter">Swetry</a>
+                    <a href="?q=t-shirt">T-shirt</a>
+                </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <div class="main-panel">
+        {% if not products %}
+            <h1 style="text-align: center; margin: 0; padding: 1em;">Nie znaleziono "{{ q }}"</h1>
+        {% else %}
+            {% if q %}
+                <h4 style="text-align: center; margin: 0; padding: 0 1em 1em 1em;">Wyszukałeś/aś "{{ q }}"</h4>
+            {% endif %}
+        {% endif %}
+        {% for i in products_len_range %}
+            {% if products|length < 3 %}
+                <div class="products-row" style="display: flex; justify-content: space-evenly;">
+            {% else %}
+                <div class="products-row">
+            {% endif %}
+            {% for p in products_range %}
+                {% if forloop.counter <= 3 and products|length > 0 %}
+                    {% with current=products.pop %}
+                        {% include 'main/includes/product-item.html' %}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+                </div>
+        {% endfor %}
+        {% if num_pages > 1 %}
+            {% if page_range %}
+            <div class="paginator">
+                {% for i in page_range %}
+                    {% if i == curr_page %}
+                        <div class="paginator-page" style="background-color: #D4D2D3;">
+                    {% else %}
+                        <div class="paginator-page">
+                    {% endif %}
+                        <a href="./{{ i }}">
+                            <p>{{ i }}</p>
+                        </a>
+                        </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block load_js %}
+<script src="{% static 'js/main-page.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/register-login.css' %}">
+{% endblock %}
+
+{% block title %}
+	Edytuj {{ user.username }}
+{% endblock %}
+
+{% block content %}
+	<h1>Edycja użytkownika {{ user.username }}</h1>
+	<form method="post" class="register-login">
+		{% csrf_token %}
+		<div class="register-div">
+			<ul>
+				{{ user_form.as_ul }}
+			</ul>
+			<ul>
+				{{ address_form.as_ul }}
+			</ul>
+			<div style="border-bottom:0; margin-bottom:0; padding-bottom:0;" class="register-button">
+				<button class="cool-btn" type="submit">Zapisz zmiany</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}

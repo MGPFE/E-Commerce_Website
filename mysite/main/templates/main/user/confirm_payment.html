@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+
+{% block load_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/confirm-payment.css' %}">
+{% endblock %}
+
+{% block title %}Potwierdź płatność{% endblock %}
+
+{% block content %}
+<h1>Potwierdź płatność</h1>
+<div class="confirm-payment">
+	<div class="payment-details">
+		<h5>Do zapłaty: <b>{{ order.price }} zł</b></h5>
+		<h5>Nazwa odbiorcy: <b>Hello Butik XYZ</b></h5>
+		<h5>Tytuł przelewu: <b>Zamówienie nr {{ order.pk }}</b></h5>
+		<h5>Numer konta: <b>00 0000 0000 0000 0000 0000 0000</b></h5>
+	</div>
+	<div class="payment-form">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<ul>
+				{{ form.as_ul }}
+			</ul>
+			<div class="btn">
+				<button class="cool-btn" type="submit">Prześlij plik</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block load_js %}
+{% endblock %}
