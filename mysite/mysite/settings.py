@@ -135,5 +135,5 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = "hellobutik.pl@gmail.com"
-EMAIL_HOST_PASSWORD = "t9692w#KvPS$jo"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
