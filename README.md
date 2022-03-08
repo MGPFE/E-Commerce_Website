@@ -1,5 +1,5 @@
 # E-Commerce_Website
-This is an E-Commerce website written in Python and Django, it's available under http://hellobutik.pythonanywhere.com/
+This is an E-Commerce website written in Python and Django, it's available under http://hellobutik.pythonanywhere.com/ (The page is designed to send e-mail messages in production but that functionality is disabled in a preview).
 ___
 ## Screenshots
 
